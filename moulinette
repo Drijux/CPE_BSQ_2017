@@ -1,0 +1,16 @@
+#!/bin/bash
+
+for i in mouli_maps/*
+do
+	echo "$(basename $i)"
+	./bsq $i > a
+	cat mouli_maps_solved/`echo "$(basename $i)"` > b
+	a=$(diff a b -qs)
+	if [[ $a == *differ ]]
+	then
+		echo "KO"
+	else
+		echo "OK"
+	fi
+	rm a b
+done
